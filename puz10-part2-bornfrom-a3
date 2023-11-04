@@ -1,0 +1,34 @@
+with open('10f2.txt','r') as input:
+    input = input.read().splitlines() ##here we go! lesson
+
+cycle=0
+x=1
+tv_row = ''
+tv=[]
+
+def increment_clock():
+    global cycle
+    cycle +=1     
+
+def check_overlap():
+    global cycle, x, tv
+    if abs(cycle-x) < 2:
+        tv_row += '#'
+    else:
+        tv_row += '.'
+    if cycle % 40 == 0:
+        tv.append(tv_row)
+        str =''
+
+
+for instruction in input:
+    increment_clock()
+    check_overlap()
+
+    if instruction.startswith('addx'):
+        increment_clock()
+        x = x + int(instruction[5:])
+        check_overlap()
+
+for line in tv:
+    print(line)
